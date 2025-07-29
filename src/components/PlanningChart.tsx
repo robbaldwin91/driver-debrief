@@ -1,228 +1,228 @@
 import { useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
-interface ProductionEvent {
-  id: string
-  title: string
+
   startTime: string
-  endTime: string
-  type: 'production' | 'maintenance' | 'testing' | 'delivery'
-  priority: 'high' | 'medium' | 'low'
-  assignee: string
-}
+  type: 'pro
+  assignee: str
 
-interface ProductionLine {
   id: string
-  name: string
   events: ProductionEvent[]
-}
 
-const mockProductionLines: ProductionLine[] = [
   {
-    id: 'line-1',
-    name: 'Assembly Line A',
-    events: [
-      {
-        id: 'event-1',
-        title: 'Morning Setup',
-        startTime: '07:00',
-        endTime: '08:00',
-        type: 'maintenance',
-        priority: 'medium',
-        assignee: 'Setup Team'
+ 
+
+        title: 'Morning Se
+        endT
+        priori
       },
-      {
-        id: 'event-2',
-        title: 'Main Production',
-        startTime: '09:00',
-        endTime: '14:00',
+ 
+
         type: 'production',
-        priority: 'high',
-        assignee: 'Production Team'
-      },
+   
       {
-        id: 'event-3',
-        title: 'End of Day Clean',
-        startTime: '17:00',
-        endTime: '18:00',
-        type: 'maintenance',
-        priority: 'low',
-        assignee: 'Maintenance'
+        title: 'End of Day C
+        endTi
+       
       }
-    ]
   },
-  {
     id: 'line-2',
-    name: 'Quality Control',
     events: [
-      {
         id: 'event-4',
-        title: 'Morning Inspection',
         startTime: '08:00',
-        endTime: '10:00',
         type: 'testing',
-        priority: 'high',
-        assignee: 'QC Team'
-      },
+        
       {
-        id: 'event-5',
-        title: 'Batch Testing',
-        startTime: '14:00',
+        title: 'Batch 
         endTime: '16:00',
-        type: 'testing',
         priority: 'medium',
-        assignee: 'QC Team'
       }
-    ]
   },
-  {
     id: 'line-3',
-    name: 'Packaging Unit',
     events: [
-      {
-        id: 'event-6',
-        title: 'Package Processing',
-        startTime: '10:00',
-        endTime: '15:00',
-        type: 'production',
-        priority: 'medium',
+        
+       
+        type: 'product
         assignee: 'Packaging Team'
-      },
       {
-        id: 'event-7',
-        title: 'Shipment Prep',
-        startTime: '16:00',
+        title: 'Shipment 
         endTime: '18:00',
-        type: 'delivery',
-        priority: 'high',
-        assignee: 'Logistics'
+        priority: 'high'
       }
-    ]
   }
-]
 
-const timeSlots = Array.from({ length: 12 }, (_, i) => {
-  const hour = 7 + i
-  return `${hour.toString().padStart(2, '0')}:00`
+  co
 })
-
-const getEventTypeColor = (type: string) => {
-  switch (type) {
-    case 'production': return 'bg-primary'
-    case 'maintenance': return 'bg-accent'
-    case 'testing': return 'bg-secondary'
-    case 'delivery': return 'bg-destructive'
-    default: return 'bg-gray-500'
+const getEventTyp
+    case 'production': retur
+    case 'tes
+    def
+}
+const getPriorityColor = (priority: 
+    case 'high': return 'bo
+    case 'low': return 'b
   }
-}
 
-const getPriorityColor = (priority: string) => {
-  switch (priority) {
-    case 'high': return 'border-l-red-500'
-    case 'medium': return 'border-l-yellow-500'
-    case 'low': return 'border-l-green-500'
-    default: return 'border-l-gray-500'
-  }
-}
+  const startHour = parseIn
+  const 
 
-const calculateEventPosition = (startTime: string, endTime: string) => {
-  const startHour = parseInt(startTime.split(':')[0])
-  const startMinute = parseInt(startTime.split(':')[1])
-  const endHour = parseInt(endTime.split(':')[0])
-  const endMinute = parseInt(endTime.split(':')[1])
-
-  const startOffset = (startHour - 7) + (startMinute / 60)
-  const duration = (endHour - startHour) + ((endMinute - startMinute) / 60)
+  const duration = (en
+  const left = `${(startOffset 
   
-  const left = `${(startOffset / 12) * 100}%`
-  const width = `${(duration / 12) * 100}%`
-  
-  return { left, width }
 }
+export function Planning
 
-export function PlanningChart() {
-  const [selectedFilter, setSelectedFilter] = useState<string>("all")
-
-  const filteredLines = mockProductionLines.map(line => ({
     ...line,
-    events: line.events.filter(event => 
-      selectedFilter === "all" || event.type === selectedFilter
-    )
+      s
   }))
-
-  return (
-    <div className="space-y-6">
-      <Card>
-        <CardHeader>
-          <div className="flex items-center justify-between">
-            <div>
-              <CardTitle className="text-2xl font-bold">Resource Planning</CardTitle>
-              <CardDescription>Production line scheduling and resource allocation</CardDescription>
-            </div>
-            <Select value={selectedFilter} onValueChange={setSelectedFilter}>
-              <SelectTrigger className="w-48">
-                <SelectValue placeholder="Filter by type" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Activities</SelectItem>
-                <SelectItem value="production">Production</SelectItem>
-                <SelectItem value="maintenance">Maintenance</SelectItem>
-                <SelectItem value="testing">Testing</SelectItem>
-                <SelectItem value="delivery">Delivery</SelectItem>
-              </SelectContent>
+  re
+   
+          <div cl
+              <CardTitle cl
+            <
+       
+              </Select
+                <SelectItem value="a
+                <SelectItem
+                <SelectIt
             </Select>
-          </div>
         </CardHeader>
-        <CardContent>
           <div className="mb-4">
-            {/* Time header */}
-            <div className="grid grid-cols-13 gap-0 mb-2">
-              <div className="text-sm font-medium text-muted-foreground py-2 px-3">
-                Production Line
-              </div>
-              {timeSlots.map((time) => (
-                <div key={time} className="text-xs text-center text-muted-foreground py-2 border-l border-border">
+        
+       
+              {timeSlo
                   {time}
-                </div>
               ))}
-            </div>
 
-            {/* Production lines and events */}
-            {filteredLines.map((line) => (
-              <div key={line.id} className="border-b border-border last:border-b-0">
-                <div className="grid grid-cols-13 gap-0 min-h-[80px]">
-                  <div className="py-4 px-3 border-r border-border bg-muted/30">
-                    <div className="font-medium text-sm">{line.name}</div>
-                    <div className="text-xs text-muted-foreground mt-1">
-                      {line.events.length} events
-                    </div>
-                  </div>
-                  
-                  <div className="col-span-12 relative py-2">
-                    {/* Time grid background */}
-                    {timeSlots.map((_, index) => (
-                      <div
-                        key={index}
-                        className="absolute top-0 bottom-0 border-l border-border/30"
-                        style={{ left: `${(index / 12) * 100}%` }}
-                      />
-                    ))}
+            {filteredLine
+                <div clas
+                    <div clas
+       
+     
+   
+ 
 
+                        style={{ left: `${(index / 12) *
+                    
                     {/* Events */}
-                    {line.events.map((event) => {
-                      const position = calculateEventPosition(event.startTime, event.endTime)
-                      return (
-                        <div
-                          key={event.id}
-                          className={`absolute top-2 bottom-2 ${getEventTypeColor(event.type)} ${getPriorityColor(event.priority)} border-l-4 rounded-md p-2 text-white text-xs shadow-sm hover:shadow-md transition-shadow cursor-pointer`}
-                          style={{
-                            left: position.left,
-                            width: position.width,
-                            minWidth: '80px'
-                          }}
-                          title={`${event.title} (${event.startTime} - ${event.endTime})`}
-                        >
+  
+
+                          className={`absolut
+                 
+                            minWidth: '80p
+                          title={`${event.
+                          <div className=
+                        </div>
+                    })}
+   
+ 
+
+          <div className="mt-6 pt-4 border-t bor
+              <div>
+                <div className="space-y-2"
+                    <div className="w-4 h-4 bg-
+                  </div>
+                    <div className="w-4
+   
+ 
+
+                    <div className="w-4 h-4 bg-destructive rounded"></di
+                  </div>
+              </div>
+                <h4 className="text-sm font-mediu
+                  <div className="flex items-center
+
+                  <div className="flex items-center gap-2"
+                    <span className="text-sm">Medium Priority</span>
+  
+                    <span className="text-sm"
+                </div>
+  
+        </CardContent>
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                           <div className="font-medium truncate">{event.title}</div>
                           <div className="text-xs opacity-90 truncate">{event.assignee}</div>
                         </div>
@@ -275,10 +275,9 @@ export function PlanningChart() {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-  )
-}
+
+
+
+
+
+
