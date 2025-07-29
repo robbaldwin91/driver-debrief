@@ -32,10 +32,6 @@ const mockProductionLines: ProductionLine[] = [
         type: 'production',
         id: 'event-4',
         assignee: 'QA Team'
-      {
-       
-        endTime: '15:3
-        priority: 'medium',
       }
   },
     id: 'line-3',
