@@ -23,6 +23,9 @@ const defaultTheme = {
       fine: { raw: "(pointer: fine)" },
       pwa: { raw: "(display-mode: standalone)" },
     },
+    gridTemplateColumns: {
+      '13': 'repeat(13, minmax(0, 1fr))',
+    },
     colors: {
       neutral: {
         1: "var(--color-neutral-1)",
