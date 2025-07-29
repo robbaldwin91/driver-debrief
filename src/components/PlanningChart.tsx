@@ -1,88 +1,77 @@
 import { useState } from "react"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-
-interface PlanningEvent {
-  id: string
 
 interface PlanningEvent {
   id: string
   title: string
   startTime: string
   endTime: string
+  type: 'production' | 'maintenance' | 'testing' | 'delivery'
+  priority: 'high' | 'medium' | 'low'
+  assignee: string
+}
 
+interface ProductionLine {
+  id: string
+  name: string
+  events: PlanningEvent[]
+}
+
+const mockProductionLines: ProductionLine[] = [
   {
-    name: 'Product
-}
-
-        endTime: '09:30',
-        prio
-      },
-        id: 'event-2',
-}
-
-        assignee: 'Team Alpha'
-   
-        title: 'Q
-        endTime: '16:30',
-        prior
-      }
-  },
-    id: 'line-2',
+    id: 'line-1',
+    name: 'Production Line A',
     events: [
-        id: 'event-4',
-        startTime: '07:00',
-        type: 'maintenanc
-        assignee: 'Maintenance
       {
-       
-        endTime: '14:0
-        priority: 'medium',
+        id: 'event-1',
+        title: 'Morning Setup',
+        startTime: '08:00',
+        endTime: '09:30',
+        type: 'production',
+        priority: 'high',
+        assignee: 'Team Alpha'
       },
-        id: 'event-6',
-        startTime: '14:30',
+      {
+        id: 'event-2',
+        title: 'Quality Check',
+        startTime: '13:00',
+        endTime: '16:30',
         type: 'testing',
-        assignee: 'QA Lead'
+        priority: 'high',
+        assignee: 'QA Team'
+      }
     ]
+  },
   {
-    name: 'Packaging &
+    id: 'line-2',
+    name: 'Production Line B',
+    events: [
       {
-        title: 'Package Ass
-        endTime: '13:00',
-        priority: 'mediu
+        id: 'event-4',
+        title: 'Equipment Maintenance',
+        startTime: '07:00',
+        endTime: '10:00',
+        type: 'maintenance',
+        priority: 'high',
+        assignee: 'Maintenance Team'
       },
-        id: 'event-8',
-       
-     
-    
-   
-]
-const timeSlots = Array.from({
-  return `${h
-
-  switch (type) {
-    case 'maintenance': retur
-    case 'delivery': return
-  }
-
-  switch (priority) {
-    case 'medium': return 'border-l-
-    defa
-}
-const calculateEventPo
-  const startMinute = parseInt(s
-  const endMinute = parseIn
-  const startOffset = (st
-  
-  const width = `${(duratio
-  return { left, width }
-
-  const
-  const filteredLines 
-    events: line.events.filter(
-    )
-
-    <div className="spac
-        <CardHeader>
+      {
+        id: 'event-5',
+        title: 'Afternoon Production',
+        startTime: '11:00',
+        endTime: '14:00',
+        type: 'production',
+        priority: 'medium',
+        assignee: 'Team Beta'
+      },
+      {
+        id: 'event-6',
+        title: 'Final Testing',
+        startTime: '14:30',
+        endTime: '17:00',
+        type: 'testing',
+        priority: 'low',
         assignee: 'QA Lead'
       }
     ]
@@ -92,7 +81,7 @@ const calculateEventPo
     name: 'Packaging & Delivery',
     events: [
       {
-        <CardContent>
+        id: 'event-7',
         title: 'Package Assembly',
         startTime: '10:00',
         endTime: '13:00',
@@ -101,7 +90,7 @@ const calculateEventPo
         assignee: 'Pack Team'
       },
       {
-                  <div
+        id: 'event-8',
         title: 'Delivery Prep',
         startTime: '16:00',
         endTime: '18:00',
@@ -146,11 +135,11 @@ const calculateEventPosition = (startTime: string, endTime: string) => {
   const startOffset = (startHour - 7) + (startMinute / 60)
   const duration = (endHour - startHour) + ((endMinute - startMinute) / 60)
   
-
-
-
-
-
+  const left = `${(startOffset / 12) * 100}%`
+  const width = `${(duration / 12) * 100}%`
+  
+  return { left, width }
+}
 
 export function PlanningChart() {
   const [selectedFilter, setSelectedFilter] = useState<string>("all")
@@ -160,7 +149,7 @@ export function PlanningChart() {
     events: line.events.filter(event => 
       selectedFilter === "all" || event.type === selectedFilter
     )
-
+  }))
 
   return (
     <div className="space-y-6">
@@ -182,8 +171,9 @@ export function PlanningChart() {
                 <SelectItem value="testing">Testing</SelectItem>
                 <SelectItem value="delivery">Delivery</SelectItem>
               </SelectContent>
-
+            </Select>
           </div>
+        </CardHeader>
 
         <CardContent>
           <div className="mb-4">
@@ -196,7 +186,7 @@ export function PlanningChart() {
                 <div key={time} className="text-xs text-center text-muted-foreground py-2 border-l border-border">
                   {time}
                 </div>
-
+              ))}
             </div>
 
             {/* Production lines and events */}
@@ -218,7 +208,7 @@ export function PlanningChart() {
                         className="absolute top-0 bottom-0 border-l border-border/30"
                         style={{ left: `${(index / 12) * 100}%` }}
                       />
-
+                    ))}
 
                     {/* Events */}
                     {line.events.map((event) => {
@@ -238,9 +228,9 @@ export function PlanningChart() {
                           <div className="text-xs opacity-90 truncate">{event.assignee}</div>
                           <div className="text-xs opacity-75">{event.startTime} - {event.endTime}</div>
                         </div>
-
+                      )
                     })}
-
+                  </div>
                 </div>
               </div>
             ))}
@@ -266,9 +256,9 @@ export function PlanningChart() {
             </div>
             <div className="flex items-center gap-2 ml-6">
               <div className="w-4 h-2 border-l-4 border-l-red-500 bg-gray-200"></div>
-
+              <span className="text-sm">High Priority</span>
             </div>
-
+            <div className="flex items-center gap-2">
               <div className="w-4 h-2 border-l-4 border-l-yellow-500 bg-gray-200"></div>
               <span className="text-sm">Medium Priority</span>
             </div>
@@ -278,7 +268,7 @@ export function PlanningChart() {
             </div>
           </div>
         </CardContent>
-
+      </Card>
     </div>
-
+  )
 }
