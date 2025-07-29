@@ -1,6 +1,5 @@
 import { useState } from "react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
 interface ProductionEvent {
   id: string
@@ -193,7 +192,94 @@ export function PlanningChart() {
               <div key={line.id} className="border-b border-border last:border-b-0">
                 <div className="grid grid-cols-13 gap-0 min-h-[80px]">
                   <div className="py-4 px-3 border-r border-border bg-muted/30">
+                  {time}
+
+              ))}
+
+
+            {/* Production lines and events */}
+            {filteredLines.map((line) => (
+              <div key={line.id} className="border-b border-border last:border-b-0">
+                <div className="grid grid-cols-13 gap-0 min-h-[80px]">
+                  <div className="py-4 px-3 border-r border-border bg-muted/30">
                     <div className="font-medium text-sm">{line.name}</div>
+                    <div className="text-xs text-muted-foreground mt-1">
+                      {line.events.length} events
+                    </div>
+                  </div>
+                  
+                  <div className="col-span-12 relative py-2">
+                    {/* Time grid background */}
+                    {timeSlots.map((_, index) => (
+                      <div
+                        key={index}
+                        className="absolute top-0 bottom-0 border-l border-border/30"
+                        style={{ left: `${(index / 12) * 100}%` }}
+
+                    ))}
+
+                    {/* Events */}
+
+                      const position = calculateEventPosition(event.startTime, event.endTime)
+                      return (
+                        <div
+                          key={event.id}
+                          className={`absolute top-2 bottom-2 ${getEventTypeColor(event.type)} ${getPriorityColor(event.priority)} border-l-4 rounded-md p-2 text-white text-xs shadow-sm hover:shadow-md transition-shadow cursor-pointer`}
+
+                            left: position.left,
+                            width: position.width,
+                            minWidth: '80px'
+
+                          title={`${event.title} (${event.startTime} - ${event.endTime})`}
+
+                          <div className="font-medium truncate">{event.title}</div>
+                          <div className="text-xs opacity-90 truncate">{event.assignee}</div>
+                          <div className="text-xs opacity-75">{event.startTime} - {event.endTime}</div>
+
+                      )
+
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Legend */}
+          <div className="flex flex-wrap gap-4 pt-4 border-t border-border">
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 bg-primary rounded"></div>
+              <span className="text-sm">Production</span>
+
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 bg-accent rounded"></div>
+              <span className="text-sm">Maintenance</span>
+
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 bg-secondary rounded"></div>
+              <span className="text-sm">Testing</span>
+
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 bg-destructive rounded"></div>
+              <span className="text-sm">Delivery</span>
+
+            <div className="flex items-center gap-2 ml-6">
+              <div className="w-4 h-2 border-l-4 border-l-red-500 bg-gray-200"></div>
+
+            </div>
+
+              <div className="w-4 h-2 border-l-4 border-l-yellow-500 bg-gray-200"></div>
+              <span className="text-sm">Medium Priority</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-2 border-l-4 border-l-green-500 bg-gray-200"></div>
+              <span className="text-sm">Low Priority</span>
+            </div>
+          </div>
+        </CardContent>
+
+    </div>
+
+}                    <div className="font-medium text-sm">{line.name}</div>
                     <div className="text-xs text-muted-foreground mt-1">
                       {line.events.length} events
                     </div>
