@@ -1,11 +1,11 @@
 import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/s
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
-interface PlanningEvent {
-  id: string
-  title: string
-  startTime: string
+  endTime: string
+  priority: 
+}
+interface Productio
   endTime: string
   type: 'production' | 'maintenance' | 'testing' | 'delivery'
   priority: 'high' | 'medium' | 'low'
@@ -14,64 +14,64 @@ interface PlanningEvent {
 
 interface ProductionLine {
   id: string
-  name: string
+    events: [
   events: PlanningEvent[]
-}
+ 
 
 const mockProductionLines: ProductionLine[] = [
   {
-    id: 'line-1',
+      },
     name: 'Production Line A',
     events: [
       {
         id: 'event-1',
         title: 'Morning Setup',
         startTime: '08:00',
-        endTime: '09:30',
-        type: 'production',
-        priority: 'high',
-        assignee: 'Team Alpha'
-      },
       {
-        id: 'event-2',
-        title: 'Quality Check',
-        startTime: '13:00',
-        endTime: '16:30',
-        type: 'testing',
-        priority: 'high',
-        assignee: 'QA Team'
-      }
-    ]
-  },
-  {
-    id: 'line-2',
-    name: 'Production Line B',
-    events: [
-      {
-        id: 'event-4',
-        title: 'Equipment Maintenance',
-        startTime: '07:00',
-        endTime: '10:00',
-        type: 'maintenance',
-        priority: 'high',
-        assignee: 'Maintenance Team'
-      },
-      {
-        id: 'event-5',
-        title: 'Afternoon Production',
-        startTime: '11:00',
+        title: 'Afternoon P
         endTime: '14:00',
-        type: 'production',
         priority: 'medium',
-        assignee: 'Team Beta'
       },
-      {
-        id: 'event-6',
-        title: 'Final Testing',
-        startTime: '14:30',
-        endTime: '17:00',
+       
+        startTime: '14
         type: 'testing',
-        priority: 'low',
+        assignee: 'QA Lead'
+    ]
+  {
+    name: 'Packaging & De
+      {
+       
+     
+    
+  {
+        id: 'even
+        startTime: '16:00',
+        type:
+      {
+    ]
+]
+const timeSlots = Array.fro
+  return `${hour.toString
+
+  switch (type) {
+    case 'maintenance': return 'bg-a
+      },
+  }
+
+  switch (priority) {
+    case 'medium': return '
+    default: return 'bord
+}
+const calculateEventPositio
+  const startMinute = parseIn
+  const 
+  const
+  
+  const width = `${(duration / 
+  return { left, width }
+
+  const [selectedFilter,
+  const filteredLines = 
         assignee: 'QA Lead'
       }
     ]
@@ -148,7 +148,7 @@ export function PlanningChart() {
     ...line,
     events: line.events.filter(event => 
       selectedFilter === "all" || event.type === selectedFilter
-    )
+     
   }))
 
   return (
@@ -156,7 +156,7 @@ export function PlanningChart() {
       <Card>
         <CardHeader>
           <div className="flex items-center justify-between">
-            <div>
+
               <CardTitle className="text-2xl font-bold">Resource Planning</CardTitle>
               <CardDescription>Production line scheduling and resource allocation</CardDescription>
             </div>
@@ -172,10 +172,10 @@ export function PlanningChart() {
                 <SelectItem value="delivery">Delivery</SelectItem>
               </SelectContent>
             </Select>
-          </div>
+              <d
         </CardHeader>
 
-        <CardContent>
+              <div cl
           <div className="mb-4">
             {/* Time header */}
             <div className="grid grid-cols-13 gap-0 mb-2">
@@ -185,9 +185,9 @@ export function PlanningChart() {
               {timeSlots.map((time) => (
                 <div key={time} className="text-xs text-center text-muted-foreground py-2 border-l border-border">
                   {time}
-                </div>
+
               ))}
-            </div>
+
 
             {/* Production lines and events */}
             {filteredLines.map((line) => (
@@ -207,29 +207,29 @@ export function PlanningChart() {
                         key={index}
                         className="absolute top-0 bottom-0 border-l border-border/30"
                         style={{ left: `${(index / 12) * 100}%` }}
-                      />
+
                     ))}
 
                     {/* Events */}
-                    {line.events.map((event) => {
+
                       const position = calculateEventPosition(event.startTime, event.endTime)
                       return (
                         <div
                           key={event.id}
                           className={`absolute top-2 bottom-2 ${getEventTypeColor(event.type)} ${getPriorityColor(event.priority)} border-l-4 rounded-md p-2 text-white text-xs shadow-sm hover:shadow-md transition-shadow cursor-pointer`}
-                          style={{
+
                             left: position.left,
                             width: position.width,
                             minWidth: '80px'
-                          }}
+
                           title={`${event.title} (${event.startTime} - ${event.endTime})`}
-                        >
+
                           <div className="font-medium truncate">{event.title}</div>
                           <div className="text-xs opacity-90 truncate">{event.assignee}</div>
                           <div className="text-xs opacity-75">{event.startTime} - {event.endTime}</div>
-                        </div>
+
                       )
-                    })}
+
                   </div>
                 </div>
               </div>
@@ -241,24 +241,24 @@ export function PlanningChart() {
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 bg-primary rounded"></div>
               <span className="text-sm">Production</span>
-            </div>
+
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 bg-accent rounded"></div>
               <span className="text-sm">Maintenance</span>
-            </div>
+
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 bg-secondary rounded"></div>
               <span className="text-sm">Testing</span>
-            </div>
+
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 bg-destructive rounded"></div>
               <span className="text-sm">Delivery</span>
-            </div>
+
             <div className="flex items-center gap-2 ml-6">
               <div className="w-4 h-2 border-l-4 border-l-red-500 bg-gray-200"></div>
-              <span className="text-sm">High Priority</span>
+
             </div>
-            <div className="flex items-center gap-2">
+
               <div className="w-4 h-2 border-l-4 border-l-yellow-500 bg-gray-200"></div>
               <span className="text-sm">Medium Priority</span>
             </div>
@@ -268,7 +268,7 @@ export function PlanningChart() {
             </div>
           </div>
         </CardContent>
-      </Card>
+
     </div>
-  )
+
 }
