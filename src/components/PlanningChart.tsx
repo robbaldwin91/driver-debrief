@@ -28,16 +28,11 @@ const mockProductionLines: ProductionLine[] = [
         id: 'event-1',
         title: 'Morning Setup',
         startTime: '08:00',
-        endTime: '09:00',
+        type: 'production
         type: 'production',
         id: 'event-4',
-        assignee: 'QA Team'
-      }
   },
-    id: 'line-3',
-    events: [
-        id: 'event-6',
-        
+      } 'line-3',
        
         assignee: 'Pac
       {
@@ -80,6 +75,11 @@ export function PlanningC
       {
         id: 'event-6',
         title: 'Package Assembly',
+        startTime: '10:00',
+        endTime: '13:00',
+        type: 'production',
+        priority: 'medium',
+        assignee: 'Pack Team'
         startTime: '10:00',
         endTime: '13:00',
         type: 'production',
@@ -128,15 +128,10 @@ const calculateEventPosition = (startTime: string, endTime: string) => {
   const startMinute = parseInt(startTime.split(':')[1])
   const endHour = parseInt(endTime.split(':')[0])
   const endMinute = parseInt(endTime.split(':')[1])
-  
+  const width = (duration / 12) * 100
   const startOffset = (startHour - 7) + (startMinute / 60)
   const duration = (endHour - startHour) + ((endMinute - startMinute) / 60)
   
-  const left = (startOffset / 12) * 100
-  const width = (duration / 12) * 100
-  
-  return { left: `${left}%`, width: `${width}%` }
-}
 
 export function PlanningChart() {
   const [selectedFilter, setSelectedFilter] = useState<string>("all")
