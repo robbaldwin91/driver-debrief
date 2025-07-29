@@ -132,6 +132,8 @@ export function ChartsDisplay() {
                 fill="hsl(var(--primary))" 
                 name="Team Size"
                 radius={[4, 4, 0, 0]}
+                stroke="hsl(var(--primary))"
+                strokeWidth={1}
               />
             </BarChart>
           </ResponsiveContainer>

@@ -17,17 +17,31 @@ interface ThemeColors {
   background: string
   foreground: string
   card: string
+  'card-foreground': string
+  muted: string
+  'muted-foreground': string
   border: string
+  input: string
+  ring: string
+  destructive: string
+  'destructive-foreground': string
 }
 
 const defaultColors: ThemeColors = {
-  primary: "oklch(0.4 0.15 250)",
-  secondary: "oklch(0.95 0.01 250)",
-  accent: "oklch(0.6 0.15 180)",
-  background: "oklch(1 0 0)",
-  foreground: "oklch(0.2 0.02 250)",
-  card: "oklch(0.98 0.01 250)",
-  border: "oklch(0.9 0.01 250)"
+  primary: "oklch(0.45 0.18 250)",
+  secondary: "oklch(0.88 0.02 250)",
+  accent: "oklch(0.55 0.18 180)",
+  background: "oklch(0.99 0.005 250)",
+  foreground: "oklch(0.15 0.02 250)",
+  card: "oklch(0.95 0.01 250)",
+  'card-foreground': "oklch(0.15 0.02 250)",
+  muted: "oklch(0.92 0.01 250)",
+  'muted-foreground': "oklch(0.55 0.02 250)",
+  border: "oklch(0.85 0.02 250)",
+  input: "oklch(0.85 0.02 250)",
+  ring: "oklch(0.45 0.18 250)",
+  destructive: "oklch(0.577 0.245 27.325)",
+  'destructive-foreground': "oklch(0.98 0.005 250)"
 }
 
 export function ThemeCustomizer() {
@@ -45,13 +59,9 @@ export function ThemeCustomizer() {
 
   const applyTheme = () => {
     const root = document.documentElement
-    root.style.setProperty('--primary', colors.primary)
-    root.style.setProperty('--secondary', colors.secondary)
-    root.style.setProperty('--accent', colors.accent)
-    root.style.setProperty('--background', colors.background)
-    root.style.setProperty('--foreground', colors.foreground)
-    root.style.setProperty('--card', colors.card)
-    root.style.setProperty('--border', colors.border)
+    Object.entries(colors).forEach(([key, value]) => {
+      root.style.setProperty(`--${key}`, value)
+    })
     
     toast.success("Theme applied successfully!")
   }
@@ -102,7 +112,9 @@ export function ThemeCustomizer() {
       colors: {
         ...defaultColors,
         primary: "oklch(0.5 0.2 230)",
-        accent: "oklch(0.7 0.15 200)"
+        accent: "oklch(0.7 0.15 200)",
+        background: "oklch(0.98 0.005 230)",
+        card: "oklch(0.94 0.01 230)"
       }
     },
     {
@@ -110,7 +122,9 @@ export function ThemeCustomizer() {
       colors: {
         ...defaultColors,
         primary: "oklch(0.45 0.15 130)",
-        accent: "oklch(0.65 0.12 160)"
+        accent: "oklch(0.65 0.12 160)",
+        background: "oklch(0.98 0.005 130)",
+        card: "oklch(0.94 0.01 130)"
       }
     },
     {
@@ -118,7 +132,9 @@ export function ThemeCustomizer() {
       colors: {
         ...defaultColors,
         primary: "oklch(0.6 0.2 40)",
-        accent: "oklch(0.7 0.15 60)"
+        accent: "oklch(0.7 0.15 60)",
+        background: "oklch(0.98 0.005 40)",
+        card: "oklch(0.94 0.01 40)"
       }
     },
     {
@@ -126,7 +142,9 @@ export function ThemeCustomizer() {
       colors: {
         ...defaultColors,
         primary: "oklch(0.5 0.2 280)",
-        accent: "oklch(0.65 0.15 300)"
+        accent: "oklch(0.65 0.15 300)",
+        background: "oklch(0.98 0.005 280)",
+        card: "oklch(0.94 0.01 280)"
       }
     }
   ]

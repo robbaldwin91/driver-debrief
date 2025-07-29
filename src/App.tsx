@@ -5,18 +5,19 @@ import { Footer } from "@/components/Footer"
 import { DataTable } from "@/components/DataTable"
 import { InfoCards } from "@/components/InfoCards"
 import { ChartsDisplay } from "@/components/ChartsDisplay"
-import { GanttChart } from "@/components/GanttChart"
+import { PlanningChart } from "@/components/PlanningChart"
 import { ComponentLibrary } from "@/components/ComponentLibrary"
 import { ThemeCustomizer } from "@/components/ThemeCustomizer"
 import { Toaster } from "@/components/ui/sonner"
 
-type PageType = 'table' | 'cards' | 'charts' | 'gantt' | 'components' | 'theme'
+type PageType = 'table' | 'cards' | 'charts' | 'planning' | 'components' | 'theme'
 
 function App() {
   const [currentPage, setCurrentPage] = useKV<PageType>("current-page", "table")
   const [themeColors] = useKV("theme-colors", {})
 
   useEffect(() => {
+    // Apply theme colors if any are set
     if (Object.keys(themeColors).length > 0) {
       const root = document.documentElement
       Object.entries(themeColors).forEach(([key, value]) => {
@@ -28,17 +29,7 @@ function App() {
   const renderCurrentPage = () => {
     switch (currentPage) {
       case 'table':
-        return (
-          <div className="space-y-6">
-            <div>
-              <h1 className="text-3xl font-bold">Data Table</h1>
-              <p className="text-muted-foreground mt-2">
-                Interactive table with sorting, filtering, and search capabilities.
-              </p>
-            </div>
-            <DataTable />
-          </div>
-        )
+        return <DataTable />
       case 'cards':
         return (
           <div className="space-y-6">
@@ -63,18 +54,8 @@ function App() {
             <ChartsDisplay />
           </div>
         )
-      case 'gantt':
-        return (
-          <div className="space-y-6">
-            <div>
-              <h1 className="text-3xl font-bold">Project Timeline</h1>
-              <p className="text-muted-foreground mt-2">
-                Gantt chart view for project management and task tracking.
-              </p>
-            </div>
-            <GanttChart />
-          </div>
-        )
+      case 'planning':
+        return <PlanningChart />
       case 'components':
         return <ComponentLibrary />
       case 'theme':

@@ -100,18 +100,27 @@ export function DataTable() {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center space-x-2">
-        <div className="relative flex-1 max-w-sm">
-          <MagnifyingGlass className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            placeholder="Search all columns..."
-            value={filter}
-            onChange={(e) => setFilter(e.target.value)}
-            className="pl-10"
-          />
+      {/* Header row with title, subtitle, and search */}
+      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+        <div className="space-y-1">
+          <h1 className="text-3xl font-bold">Data Table</h1>
+          <p className="text-muted-foreground">
+            Interactive table with sorting, filtering, and search capabilities.
+          </p>
         </div>
-        <div className="text-sm text-muted-foreground">
-          {filteredAndSortedData.length} of {dummyData.length} rows
+        <div className="flex items-center space-x-3">
+          <div className="relative">
+            <MagnifyingGlass className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              placeholder="Search all columns..."
+              value={filter}
+              onChange={(e) => setFilter(e.target.value)}
+              className="pl-10 w-64"
+            />
+          </div>
+          <div className="text-sm text-muted-foreground whitespace-nowrap">
+            {filteredAndSortedData.length} of {dummyData.length} rows
+          </div>
         </div>
       </div>
 

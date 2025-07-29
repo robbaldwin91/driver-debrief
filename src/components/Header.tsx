@@ -23,7 +23,7 @@ const navigation = [
   { id: 'table', label: 'Data Table', icon: Table },
   { id: 'cards', label: 'Cards', icon: CreditCard },
   { id: 'charts', label: 'Charts', icon: ChartLine },
-  { id: 'gantt', label: 'Gantt Chart', icon: Calendar },
+  { id: 'planning', label: 'Planning', icon: Calendar },
   { id: 'components', label: 'Components', icon: Package },
   { id: 'theme', label: 'Theme', icon: Palette },
 ]
