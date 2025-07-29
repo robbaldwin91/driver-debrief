@@ -1,6 +1,7 @@
 import { useState } from "react"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/s
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
+interface PlanningEvent {
   id: string
 
 interface PlanningEvent {
