@@ -215,29 +215,29 @@ export function PlanningChart() {
                         key={index}
                         className="absolute top-0 bottom-0 border-l border-border/30"
                         style={{ left: `${(index / 12) * 100}%` }}
-
+                      />
                     ))}
 
                     {/* Events */}
-
+                    {line.events.map((event) => {
                       const position = calculateEventPosition(event.startTime, event.endTime)
                       return (
                         <div
                           key={event.id}
                           className={`absolute top-2 bottom-2 ${getEventTypeColor(event.type)} ${getPriorityColor(event.priority)} border-l-4 rounded-md p-2 text-white text-xs shadow-sm hover:shadow-md transition-shadow cursor-pointer`}
-
+                          style={{
                             left: position.left,
                             width: position.width,
                             minWidth: '80px'
-
+                          }}
                           title={`${event.title} (${event.startTime} - ${event.endTime})`}
-
+                        >
                           <div className="font-medium truncate">{event.title}</div>
                           <div className="text-xs opacity-90 truncate">{event.assignee}</div>
                           <div className="text-xs opacity-75">{event.startTime} - {event.endTime}</div>
-
+                        </div>
                       )
-
+                    })}
                   </div>
                 </div>
               </div>
