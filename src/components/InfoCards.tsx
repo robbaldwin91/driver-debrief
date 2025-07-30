@@ -1,21 +1,38 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Calendar, MapPin, Users, Star } from "@phosphor-icons/react"
+import { Calendar, MapPin, Users, Star } from "lucide-react"
 
 interface InfoCardData {
   id: number
   title: string
-  subtitle: string
-  description: string
-  image: string
-  labels: string[]
-  metadata: {
-    date: string
-    location: string
-    participants: number
-    rating: number
+  subtitle?: string
+  description?: string
+  image?: string
+  labels?: string[]
+  metadata?: {
+    date?: string
+    location?: string
+    participants?: number
+    rating?: number
   }
+  button?: {
+    text: string
+    onClick?: () => void
+  }
+}
+
+interface InfoCardsProps {
+  showImage?: boolean
+  showSubtitle?: boolean
+  showDescription?: boolean
+  showLabels?: boolean
+  showMetadata?: boolean
+  showButton?: boolean
+  showDate?: boolean
+  showLocation?: boolean
+  showParticipants?: boolean
+  showRating?: boolean
 }
 
 const cardData: InfoCardData[] = [
@@ -31,6 +48,9 @@ const cardData: InfoCardData[] = [
       location: "San Francisco, CA",
       participants: 156,
       rating: 4.8
+    },
+    button: {
+      text: "Learn More"
     }
   },
   {
@@ -45,6 +65,9 @@ const cardData: InfoCardData[] = [
       location: "New York, NY",
       participants: 89,
       rating: 4.9
+    },
+    button: {
+      text: "Learn More"
     }
   },
   {
@@ -59,6 +82,9 @@ const cardData: InfoCardData[] = [
       location: "Austin, TX",
       participants: 203,
       rating: 4.7
+    },
+    button: {
+      text: "Learn More"
     }
   },
   {
@@ -73,6 +99,9 @@ const cardData: InfoCardData[] = [
       location: "Seattle, WA",
       participants: 127,
       rating: 4.6
+    },
+    button: {
+      text: "Learn More"
     }
   },
   {
@@ -87,6 +116,9 @@ const cardData: InfoCardData[] = [
       location: "Los Angeles, CA",
       participants: 174,
       rating: 4.8
+    },
+    button: {
+      text: "Learn More"
     }
   },
   {
@@ -101,67 +133,106 @@ const cardData: InfoCardData[] = [
       location: "Chicago, IL",
       participants: 95,
       rating: 4.9
+    },
+    button: {
+      text: "Learn More"
     }
   }
 ]
 
-export function InfoCards() {
+export function InfoCards({
+  showImage = true,
+  showSubtitle = true,
+  showDescription = true,
+  showLabels = true,
+  showMetadata = true,
+  showButton = true,
+  showDate = true,
+  showLocation = true,
+  showParticipants = true,
+  showRating = true
+}: InfoCardsProps = {}) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {cardData.map((card) => (
-        <Card key={card.id} className="flex flex-col overflow-hidden transition-all duration-200 hover:shadow-lg">
-          <div className="aspect-video overflow-hidden">
-            <img 
-              src={card.image} 
-              alt={card.title}
-              className="w-full h-full object-cover transition-transform duration-200 hover:scale-105"
-            />
-          </div>
+        <Card key={card.id} className="flex flex-col overflow-hidden transition-all duration-200 hover:shadow-lg p-0">
+          {showImage && card.image && (
+            <div className="aspect-video overflow-hidden">
+              <img 
+                src={card.image} 
+                alt={card.title}
+                className="w-full h-full object-cover transition-transform duration-200 hover:scale-105"
+              />
+            </div>
+          )}
           
           <CardHeader className="flex-none">
-            <div className="flex flex-wrap gap-2 mb-2">
-              {card.labels.map((label) => (
-                <Badge key={label} variant="secondary" className="text-xs">
-                  {label}
-                </Badge>
-              ))}
-            </div>
+            {showLabels && card.labels && card.labels.length > 0 && (
+              <div className="flex flex-wrap gap-2 mb-2">
+                {card.labels.map((label) => (
+                  <Badge key={label} variant="secondary" className="text-xs">
+                    {label}
+                  </Badge>
+                ))}
+              </div>
+            )}
             <CardTitle className="text-lg leading-tight">{card.title}</CardTitle>
-            <CardDescription className="text-primary font-medium">
-              {card.subtitle}
-            </CardDescription>
+            {showSubtitle && card.subtitle && (
+              <CardDescription className="text-primary font-medium">
+                {card.subtitle}
+              </CardDescription>
+            )}
           </CardHeader>
           
-          <CardContent className="flex-1">
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              {card.description}
-            </p>
-            
-            <div className="grid grid-cols-2 gap-4 mt-4 pt-4 border-t border-border">
-              <div className="flex items-center space-x-2 text-xs text-muted-foreground">
-                <Calendar className="h-3 w-3" />
-                <span>{new Date(card.metadata.date).toLocaleDateString()}</span>
-              </div>
-              <div className="flex items-center space-x-2 text-xs text-muted-foreground">
-                <MapPin className="h-3 w-3" />
-                <span>{card.metadata.location}</span>
-              </div>
-              <div className="flex items-center space-x-2 text-xs text-muted-foreground">
-                <Users className="h-3 w-3" />
-                <span>{card.metadata.participants} participants</span>
-              </div>
-              <div className="flex items-center space-x-2 text-xs text-muted-foreground">
-                <Star className="h-3 w-3 fill-current" />
-                <span>{card.metadata.rating}/5.0</span>
-              </div>
-            </div>
-          </CardContent>
+          {(showDescription && card.description) || (showMetadata && card.metadata) ? (
+            <CardContent className="flex-1">
+              {showDescription && card.description && (
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {card.description}
+                </p>
+              )}
+              
+              {showMetadata && card.metadata && (
+                <div className="grid grid-cols-2 gap-4 mt-4 pt-4 border-t border-border">
+                  {showDate && card.metadata.date && (
+                    <div className="flex items-center space-x-2 text-xs text-muted-foreground">
+                      <Calendar className="h-3 w-3" />
+                      <span>{new Date(card.metadata.date).toLocaleDateString()}</span>
+                    </div>
+                  )}
+                  {showLocation && card.metadata.location && (
+                    <div className="flex items-center space-x-2 text-xs text-muted-foreground">
+                      <MapPin className="h-3 w-3" />
+                      <span>{card.metadata.location}</span>
+                    </div>
+                  )}
+                  {showParticipants && card.metadata.participants && (
+                    <div className="flex items-center space-x-2 text-xs text-muted-foreground">
+                      <Users className="h-3 w-3" />
+                      <span>{card.metadata.participants} participants</span>
+                    </div>
+                  )}
+                  {showRating && card.metadata.rating && (
+                    <div className="flex items-center space-x-2 text-xs text-muted-foreground">
+                      <Star className="h-3 w-3 fill-current" />
+                      <span>{card.metadata.rating}/5.0</span>
+                    </div>
+                  )}
+                </div>
+              )}
+            </CardContent>
+          ) : null}
           
-          <CardFooter className="flex-none">
-            <Button className="w-full">
-              Learn More
-            </Button>
-          </CardFooter>
+          {showButton && card.button && (
+            <CardFooter className="flex-none p-6">
+              <Button 
+                className="w-full"
+                onClick={card.button.onClick}
+              >
+                {card.button.text}
+              </Button>
+            </CardFooter>
+          )}
         </Card>
       ))}
     </div>

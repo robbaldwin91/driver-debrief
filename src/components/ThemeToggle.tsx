@@ -1,10 +1,16 @@
-import { Moon, Sun } from "@phosphor-icons/react"
+import { Moon, Sun } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { useKV } from '@github/spark/hooks'
-import { useEffect } from "react"
+import { useState, useEffect } from "react"
 
 export function ThemeToggle() {
-  const [isDark, setIsDark] = useKV("theme-mode", false)
+  const [isDark, setIsDark] = useState(() => {
+    const saved = localStorage.getItem("theme-mode");
+    return saved ? JSON.parse(saved) : false;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("theme-mode", JSON.stringify(isDark));
+  }, [isDark]);
 
   useEffect(() => {
     if (isDark) {

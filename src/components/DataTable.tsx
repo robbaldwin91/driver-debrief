@@ -10,7 +10,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
-import { CaretUp, CaretDown, MagnifyingGlass } from "@phosphor-icons/react"
+import { ChevronUp, ChevronDown, Search } from "lucide-react"
 
 interface DataItem {
   id: number
@@ -94,8 +94,8 @@ export function DataTable() {
   const SortIcon = ({ field }: { field: SortField }) => {
     if (sortField !== field) return null
     return sortDirection === 'asc' ? 
-      <CaretUp className="h-4 w-4" /> : 
-      <CaretDown className="h-4 w-4" />
+      <ChevronUp className="h-4 w-4" /> : 
+      <ChevronDown className="h-4 w-4" />
   }
 
   return (
@@ -110,7 +110,7 @@ export function DataTable() {
         </div>
         <div className="flex items-center space-x-3">
           <div className="relative">
-            <MagnifyingGlass className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
               placeholder="Search all columns..."
               value={filter}

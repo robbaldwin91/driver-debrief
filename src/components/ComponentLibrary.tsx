@@ -20,21 +20,20 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { toast } from "sonner"
 import { format } from "date-fns"
 import { 
-  CalendarBlank, 
-  CaretUpDown, 
+  Calendar as CalendarIcon, 
+  ChevronsUpDown, 
   Check, 
   Info, 
-  Warning, 
+  AlertTriangle, 
   Star,
   MapPin,
   Users,
-  Calendar as CalendarIcon,
-  MagnifyingGlass,
-  CaretUp,
-  CaretDown,
+  Search,
+  ChevronUp,
+  ChevronDown,
   Clock,
   User
-} from "@phosphor-icons/react"
+} from "lucide-react"
 import {
   LineChart,
   Line,
@@ -79,9 +78,9 @@ const sampleBarData = [
 ]
 
 const samplePieData = [
-  { name: 'Desktop', value: 45, color: 'hsl(var(--primary))' },
-  { name: 'Mobile', value: 35, color: 'hsl(var(--accent))' },
-  { name: 'Tablet', value: 20, color: 'hsl(var(--muted-foreground))' },
+  { name: 'Desktop', value: 45, color: '#3b82f6' },
+  { name: 'Mobile', value: 35, color: '#10b981' },
+  { name: 'Tablet', value: 20, color: '#f97316' },
 ]
 
 export function ComponentLibrary() {
@@ -203,7 +202,7 @@ export function ComponentLibrary() {
                   variant="outline"
                   className="w-full justify-start text-left font-normal"
                 >
-                  <CalendarBlank className="mr-2 h-4 w-4" />
+                  <CalendarIcon className="mr-2 h-4 w-4" />
                   {date ? format(date, "PPP") : <span>Pick a date</span>}
                 </Button>
               </PopoverTrigger>
@@ -231,7 +230,7 @@ export function ComponentLibrary() {
                   {comboValue
                     ? frameworks.find((framework) => framework.value === comboValue)?.label
                     : "Select framework..."}
-                  <CaretUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                  <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-full p-0">
@@ -342,7 +341,7 @@ export function ComponentLibrary() {
             {tableFeatures.showSearch && (
               <div className="flex items-center justify-between">
                 <div className="relative">
-                  <MagnifyingGlass className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                  <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                   <Input
                     placeholder="Search table..."
                     className="pl-10 w-64"
@@ -365,7 +364,7 @@ export function ComponentLibrary() {
                         <Button variant="ghost" className="h-auto p-0 font-semibold hover:bg-transparent">
                           <span className="flex items-center space-x-1">
                             <span>Name</span>
-                            <CaretUp className="h-4 w-4" />
+                            <ChevronUp className="h-4 w-4" />
                           </span>
                         </Button>
                       ) : (
@@ -453,8 +452,9 @@ export function ComponentLibrary() {
             </div>
           </div>
 
-          <div className="max-w-sm">
-            <Card className="flex flex-col overflow-hidden">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Card Example 1 */}
+            <Card className="flex flex-col overflow-hidden pt-0">
               {cardFeatures.showImage && (
                 <div className="aspect-video overflow-hidden">
                   <img 
@@ -472,16 +472,16 @@ export function ComponentLibrary() {
                     <Badge variant="secondary">TypeScript</Badge>
                   </div>
                 )}
-                <CardTitle className="text-lg">Sample Card Title</CardTitle>
+                <CardTitle className="text-lg">Modern Web Development</CardTitle>
                 <CardDescription className="text-primary font-medium">
-                  Card Subtitle
+                  Frontend Technologies
                 </CardDescription>
               </CardHeader>
               
               <CardContent className="flex-1">
                 {cardFeatures.showDescription && (
                   <p className="text-sm text-muted-foreground mb-4">
-                    This is a sample card description showing how content appears in the card layout.
+                    This card showcases modern web development technologies and best practices for building scalable applications.
                   </p>
                 )}
                 
@@ -511,6 +511,132 @@ export function ComponentLibrary() {
                 <CardContent className="flex-none pt-0">
                   <Button className="w-full">
                     Learn More
+                  </Button>
+                </CardContent>
+              )}
+            </Card>
+
+            {/* Card Example 2 */}
+            <Card className="flex flex-col overflow-hidden pt-0">
+              {cardFeatures.showImage && (
+                <div className="aspect-video overflow-hidden">
+                  <img 
+                    src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=250&fit=crop" 
+                    alt="Analytics"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              )}
+              
+              <CardHeader className="flex-none">
+                {cardFeatures.showLabels && (
+                  <div className="flex flex-wrap gap-2 mb-2">
+                    <Badge variant="secondary">Analytics</Badge>
+                    <Badge variant="secondary">Data Science</Badge>
+                  </div>
+                )}
+                <CardTitle className="text-lg">Data Analytics Platform</CardTitle>
+                <CardDescription className="text-primary font-medium">
+                  Business Intelligence
+                </CardDescription>
+              </CardHeader>
+              
+              <CardContent className="flex-1">
+                {cardFeatures.showDescription && (
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Advanced analytics platform for processing large datasets and generating actionable business insights.
+                  </p>
+                )}
+                
+                {cardFeatures.showMetadata && (
+                  <div className="grid grid-cols-2 gap-4 pt-4 border-t border-border">
+                    <div className="flex items-center space-x-2 text-xs text-muted-foreground">
+                      <CalendarIcon className="h-3 w-3" />
+                      <span>Feb 28, 2024</span>
+                    </div>
+                    <div className="flex items-center space-x-2 text-xs text-muted-foreground">
+                      <MapPin className="h-3 w-3" />
+                      <span>New York</span>
+                    </div>
+                    <div className="flex items-center space-x-2 text-xs text-muted-foreground">
+                      <Users className="h-3 w-3" />
+                      <span>89 users</span>
+                    </div>
+                    <div className="flex items-center space-x-2 text-xs text-muted-foreground">
+                      <Star className="h-3 w-3 fill-current" />
+                      <span>4.9/5.0</span>
+                    </div>
+                  </div>
+                )}
+              </CardContent>
+              
+              {cardFeatures.showFooter && (
+                <CardContent className="flex-none pt-0">
+                  <Button className="w-full">
+                    View Dashboard
+                  </Button>
+                </CardContent>
+              )}
+            </Card>
+
+            {/* Card Example 3 */}
+            <Card className="flex flex-col overflow-hidden pt-0">
+              {cardFeatures.showImage && (
+                <div className="aspect-video overflow-hidden">
+                  <img 
+                    src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=250&fit=crop" 
+                    alt="Business"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              )}
+              
+              <CardHeader className="flex-none">
+                {cardFeatures.showLabels && (
+                  <div className="flex flex-wrap gap-2 mb-2">
+                    <Badge variant="secondary">Business</Badge>
+                    <Badge variant="secondary">Strategy</Badge>
+                  </div>
+                )}
+                <CardTitle className="text-lg">Business Strategy Tools</CardTitle>
+                <CardDescription className="text-primary font-medium">
+                  Enterprise Solutions
+                </CardDescription>
+              </CardHeader>
+              
+              <CardContent className="flex-1">
+                {cardFeatures.showDescription && (
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Comprehensive suite of tools for strategic planning, market analysis, and business growth optimization.
+                  </p>
+                )}
+                
+                {cardFeatures.showMetadata && (
+                  <div className="grid grid-cols-2 gap-4 pt-4 border-t border-border">
+                    <div className="flex items-center space-x-2 text-xs text-muted-foreground">
+                      <CalendarIcon className="h-3 w-3" />
+                      <span>Apr 10, 2024</span>
+                    </div>
+                    <div className="flex items-center space-x-2 text-xs text-muted-foreground">
+                      <MapPin className="h-3 w-3" />
+                      <span>London</span>
+                    </div>
+                    <div className="flex items-center space-x-2 text-xs text-muted-foreground">
+                      <Users className="h-3 w-3" />
+                      <span>234 enterprises</span>
+                    </div>
+                    <div className="flex items-center space-x-2 text-xs text-muted-foreground">
+                      <Star className="h-3 w-3 fill-current" />
+                      <span>4.7/5.0</span>
+                    </div>
+                  </div>
+                )}
+              </CardContent>
+              
+              {cardFeatures.showFooter && (
+                <CardContent className="flex-none pt-0">
+                  <Button className="w-full">
+                    Get Started
                   </Button>
                 </CardContent>
               )}
@@ -597,7 +723,24 @@ export function ComponentLibrary() {
                       />
                     )}
                     {chartFeatures.showLegend && <Legend />}
-                    <Line type="monotone" dataKey="users" stroke="hsl(var(--primary))" strokeWidth={2} name="Users" />
+                    <Line 
+                      type="monotone" 
+                      dataKey="users" 
+                      stroke="#3b82f6" 
+                      strokeWidth={3} 
+                      name="Users"
+                      dot={{ fill: '#3b82f6', strokeWidth: 2, r: 4 }}
+                      activeDot={{ r: 6, stroke: '#3b82f6', strokeWidth: 2 }}
+                    />
+                    <Line 
+                      type="monotone" 
+                      dataKey="revenue" 
+                      stroke="#10b981" 
+                      strokeWidth={3} 
+                      name="Revenue"
+                      dot={{ fill: '#10b981', strokeWidth: 2, r: 4 }}
+                      activeDot={{ r: 6, stroke: '#10b981', strokeWidth: 2 }}
+                    />
                   </LineChart>
                 </ResponsiveContainer>
               </CardContent>
@@ -628,8 +771,82 @@ export function ComponentLibrary() {
                       />
                     )}
                     {chartFeatures.showLegend && <Legend />}
-                    <Bar dataKey="count" fill="hsl(var(--primary))" name="Count" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="count" fill="#8b5cf6" name="Count" radius={[4, 4, 0, 0]} />
                   </BarChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+
+            {/* Area Chart Sample */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-base">Area Chart</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ResponsiveContainer width="100%" height={200}>
+                  <AreaChart data={sampleChartData}>
+                    {chartFeatures.showGrid && <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />}
+                    {chartFeatures.showAxis && (
+                      <>
+                        <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" fontSize={12} />
+                        <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} />
+                      </>
+                    )}
+                    {chartFeatures.showTooltip && (
+                      <Tooltip 
+                        contentStyle={{
+                          backgroundColor: 'hsl(var(--card))',
+                          border: '1px solid hsl(var(--border))',
+                          borderRadius: '6px'
+                        }}
+                      />
+                    )}
+                    {chartFeatures.showLegend && <Legend />}
+                    <Area 
+                      type="monotone" 
+                      dataKey="users" 
+                      stroke="#f97316" 
+                      fill="#f97316" 
+                      fillOpacity={0.3}
+                      strokeWidth={2}
+                      name="Users"
+                    />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+
+            {/* Pie Chart Sample */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-base">Pie Chart</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ResponsiveContainer width="100%" height={200}>
+                  <PieChart>
+                    <Pie
+                      data={samplePieData}
+                      cx="50%"
+                      cy="50%"
+                      outerRadius={60}
+                      fill="#8884d8"
+                      dataKey="value"
+                      label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                    >
+                      {samplePieData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.color} />
+                      ))}
+                    </Pie>
+                    {chartFeatures.showTooltip && (
+                      <Tooltip 
+                        contentStyle={{
+                          backgroundColor: 'hsl(var(--card))',
+                          border: '1px solid hsl(var(--border))',
+                          borderRadius: '6px'
+                        }}
+                      />
+                    )}
+                  </PieChart>
                 </ResponsiveContainer>
               </CardContent>
             </Card>
@@ -692,7 +909,7 @@ export function ComponentLibrary() {
           <div className="space-y-4">
             {planningFeatures.showFilters && (
               <div className="flex items-center justify-between">
-                <h3 className="font-semibold">Production Line A</h3>
+                <h3 className="font-semibold">Production Schedule</h3>
                 <Select defaultValue="all">
                   <SelectTrigger className="w-40">
                     <SelectValue />
@@ -701,6 +918,7 @@ export function ComponentLibrary() {
                     <SelectItem value="all">All Events</SelectItem>
                     <SelectItem value="production">Production</SelectItem>
                     <SelectItem value="maintenance">Maintenance</SelectItem>
+                    <SelectItem value="setup">Setup</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -717,41 +935,180 @@ export function ComponentLibrary() {
               </div>
             )}
 
-            <div className="relative h-16 bg-muted/20 rounded-lg border">
-              <div className="absolute top-2 bottom-2 left-[5%] w-[25%] bg-primary rounded-md p-2 cursor-pointer">
-                <div className="text-xs text-white font-medium">Production Setup</div>
-                {planningFeatures.showEventDetails && (
-                  <div className="text-xs text-white/80 flex items-center space-x-1">
-                    <Clock className="h-3 w-3" />
-                    <span>08:00 - 10:00</span>
+            <div className="space-y-3">
+              {/* Production Line A */}
+              <div>
+                <div className="text-sm font-medium mb-2 text-muted-foreground">Line A - Assembly</div>
+                <div className="relative h-16 bg-muted/20 rounded-lg border">
+                  <div className="absolute top-2 bottom-2 left-[5%] w-[25%] bg-blue-500 rounded-md p-2 cursor-pointer">
+                    <div className="text-xs text-white font-medium">Setup</div>
+                    {planningFeatures.showEventDetails && (
+                      <div className="text-xs text-white/80 flex items-center space-x-1">
+                        <Clock className="h-3 w-3" />
+                        <span>08:00 - 10:00</span>
+                      </div>
+                    )}
                   </div>
-                )}
+                  <div className="absolute top-2 bottom-2 left-[30%] w-[40%] bg-green-500 rounded-md p-2 cursor-pointer">
+                    <div className="text-xs text-white font-medium">Production Run</div>
+                    {planningFeatures.showEventDetails && (
+                      <div className="text-xs text-white/80 flex items-center space-x-1">
+                        <User className="h-3 w-3" />
+                        <span>Team Alpha</span>
+                      </div>
+                    )}
+                  </div>
+                  <div className="absolute top-2 bottom-2 left-[75%] w-[20%] bg-orange-500 rounded-md p-2 cursor-pointer">
+                    <div className="text-xs text-white font-medium">QA Check</div>
+                  </div>
+                </div>
               </div>
-              <div className="absolute top-2 bottom-2 left-[35%] w-[30%] bg-accent rounded-md p-2 cursor-pointer">
-                <div className="text-xs text-white font-medium">Maintenance</div>
-                {planningFeatures.showEventDetails && (
-                  <div className="text-xs text-white/80 flex items-center space-x-1">
-                    <User className="h-3 w-3" />
-                    <span>Tech Team</span>
+
+              {/* Production Line B */}
+              <div>
+                <div className="text-sm font-medium mb-2 text-muted-foreground">Line B - Packaging</div>
+                <div className="relative h-16 bg-muted/20 rounded-lg border">
+                  <div className="absolute top-2 bottom-2 left-[10%] w-[35%] bg-purple-500 rounded-md p-2 cursor-pointer">
+                    <div className="text-xs text-white font-medium">Packaging</div>
+                    {planningFeatures.showEventDetails && (
+                      <div className="text-xs text-white/80 flex items-center space-x-1">
+                        <Clock className="h-3 w-3" />
+                        <span>09:00 - 13:30</span>
+                      </div>
+                    )}
                   </div>
-                )}
+                  <div className="absolute top-2 bottom-2 left-[50%] w-[25%] bg-red-500 rounded-md p-2 cursor-pointer">
+                    <div className="text-xs text-white font-medium">Maintenance</div>
+                    {planningFeatures.showEventDetails && (
+                      <div className="text-xs text-white/80 flex items-center space-x-1">
+                        <User className="h-3 w-3" />
+                        <span>Tech Team</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Production Line C */}
+              <div>
+                <div className="text-sm font-medium mb-2 text-muted-foreground">Line C - Quality Control</div>
+                <div className="relative h-16 bg-muted/20 rounded-lg border">
+                  <div className="absolute top-2 bottom-2 left-[15%] w-[30%] bg-teal-500 rounded-md p-2 cursor-pointer">
+                    <div className="text-xs text-white font-medium">Inspection</div>
+                    {planningFeatures.showEventDetails && (
+                      <div className="text-xs text-white/80 flex items-center space-x-1">
+                        <Clock className="h-3 w-3" />
+                        <span>10:00 - 13:00</span>
+                      </div>
+                    )}
+                  </div>
+                  <div className="absolute top-2 bottom-2 left-[50%] w-[25%] bg-yellow-500 rounded-md p-2 cursor-pointer">
+                    <div className="text-xs text-white font-medium">Testing</div>
+                    {planningFeatures.showEventDetails && (
+                      <div className="text-xs text-white/80 flex items-center space-x-1">
+                        <User className="h-3 w-3" />
+                        <span>QA Team</span>
+                      </div>
+                    )}
+                  </div>
+                  <div className="absolute top-2 bottom-2 left-[80%] w-[15%] bg-indigo-500 rounded-md p-2 cursor-pointer">
+                    <div className="text-xs text-white font-medium">Audit</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Production Line D */}
+              <div>
+                <div className="text-sm font-medium mb-2 text-muted-foreground">Line D - Shipping</div>
+                <div className="relative h-16 bg-muted/20 rounded-lg border">
+                  <div className="absolute top-2 bottom-2 left-[20%] w-[40%] bg-pink-500 rounded-md p-2 cursor-pointer">
+                    <div className="text-xs text-white font-medium">Preparation</div>
+                    {planningFeatures.showEventDetails && (
+                      <div className="text-xs text-white/80 flex items-center space-x-1">
+                        <Clock className="h-3 w-3" />
+                        <span>11:00 - 15:00</span>
+                      </div>
+                    )}
+                  </div>
+                  <div className="absolute top-2 bottom-2 left-[65%] w-[30%] bg-cyan-500 rounded-md p-2 cursor-pointer">
+                    <div className="text-xs text-white font-medium">Dispatch</div>
+                    {planningFeatures.showEventDetails && (
+                      <div className="text-xs text-white/80 flex items-center space-x-1">
+                        <User className="h-3 w-3" />
+                        <span>Logistics</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
 
             {planningFeatures.showLegend && (
               <div className="pt-4 border-t border-border">
-                <div className="flex flex-wrap gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div className="flex items-center space-x-2">
-                    <div className="w-4 h-4 bg-primary rounded" />
+                    <div className="w-4 h-4 bg-blue-500 rounded" />
+                    <span className="text-sm">Setup</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-4 h-4 bg-green-500 rounded" />
                     <span className="text-sm">Production</span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <div className="w-4 h-4 bg-accent rounded" />
+                    <div className="w-4 h-4 bg-red-500 rounded" />
                     <span className="text-sm">Maintenance</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-4 h-4 bg-orange-500 rounded" />
+                    <span className="text-sm">Quality Check</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-4 h-4 bg-purple-500 rounded" />
+                    <span className="text-sm">Packaging</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-4 h-4 bg-teal-500 rounded" />
+                    <span className="text-sm">Inspection</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-4 h-4 bg-pink-500 rounded" />
+                    <span className="text-sm">Shipping Prep</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-4 h-4 bg-cyan-500 rounded" />
+                    <span className="text-sm">Dispatch</span>
                   </div>
                 </div>
               </div>
             )}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Map Component */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Map Component</CardTitle>
+          <CardDescription>
+            Simple Google Maps integration
+            <br />
+            <code className="text-xs bg-muted px-2 py-1 rounded mt-2 inline-block">
+              Component: GoogleMaps (embedded iframe)
+            </code>
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="aspect-[16/10] rounded-lg overflow-hidden border border-border">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d50398.85242804041!2d-122.46976267832031!3d37.75919937822546!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1641234567890!5m2!1sen!2sus"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Map Display"
+            />
           </div>
         </CardContent>
       </Card>
@@ -826,7 +1183,7 @@ export function ComponentLibrary() {
                 <AlertDescription>This is an informational message.</AlertDescription>
               </Alert>
               <Alert variant="destructive">
-                <Warning className="h-4 w-4" />
+                <AlertTriangle className="h-4 w-4" />
                 <AlertTitle>Warning</AlertTitle>
                 <AlertDescription>This requires your attention.</AlertDescription>
               </Alert>
